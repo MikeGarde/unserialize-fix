@@ -12,13 +12,18 @@
     }
   ],
   "require": {
-    "php": ">=4.0.0"
+    "php": ">=5.4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "5.4.*"
   },
   "autoload": {
     "psr-4": {
       "unserialize\\": "src/"
     },
-    "files": ["src/fix.php"]
+    "files": [
+      "src/fix.php"
+    ]
   },
   "minimum-stability": "dev"
 }
