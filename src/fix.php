@@ -1,15 +1,15 @@
 <?php namespace unserialize;
 
 /**
- * @param $string
+ * @param $string A PHP Serialized String (use JSON next time)
  *
- * @return array|mixed|string
+ * @return array|mixed|string Unserialized Value
  */
 function fix($string)
 {
 	try
 	{
-		//return unserialize($string);
+		return unserialize($string);
 	}
 	catch (Exception $e)
 	{
@@ -53,7 +53,7 @@ function fix($string)
 					continue;
 					break;
 				case 'b':
-					$bool = substr($string, $i + 2, 1);
+					$bool          = substr($string, $i + 2, 1);
 					$placeholder[] = ($bool == 1) ? true : false;
 					$i             = $i + 1;
 					continue;
