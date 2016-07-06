@@ -41,9 +41,21 @@ function fix($string)
 					$isString = true;
 					break;
 				case 'i':
-					preg_match('/^([0-9]+)/', substr($string, $start + 2), $intMatch);
+					preg_match('/^([0-9]+)/', substr($string, $i + 2), $intMatch);
 					$placeholder[] = (int) $intMatch[1];
 					$i             = $i + strlen($intMatch[1]);
+					continue;
+					break;
+				case 'd':
+					preg_match('/^([0-9.]+)/', substr($string, $i + 2), $intMatch);
+					$placeholder[] = floatval($intMatch[1]);
+					$i             = $i + strlen($intMatch[1]);
+					continue;
+					break;
+				case 'b':
+					$bool = substr($string, $i + 2, 1);
+					$placeholder[] = ($bool == 1) ? true : false;
+					$i             = $i + 1;
 					continue;
 					break;
 			}
