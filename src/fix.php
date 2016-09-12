@@ -3,13 +3,16 @@
 /**
  * @param $string A PHP Serialized String (use JSON next time)
  *
- * @return array|mixed|string Unserialized Value
+ * @return mixed|null
+ * @throws \Exception
  */
 function fix($string)
 {
 	try
 	{
-		return unserialize($string);
+		$return = unserialize($string);
+
+		return $return;
 	}
 	catch (Exception $e)
 	{
@@ -44,19 +47,22 @@ function fix($string)
 					preg_match('/^([0-9]+)/', substr($string, $i + 2), $intMatch);
 					$placeholder[] = (int) $intMatch[1];
 					$i             = $i + strlen($intMatch[1]);
-					continue;
 					break;
 				case 'd':
 					preg_match('/^([0-9.]+)/', substr($string, $i + 2), $intMatch);
 					$placeholder[] = floatval($intMatch[1]);
 					$i             = $i + strlen($intMatch[1]);
-					continue;
 					break;
 				case 'b':
 					$bool          = substr($string, $i + 2, 1);
 					$placeholder[] = ($bool == 1) ? true : false;
 					$i             = $i + 1;
-					continue;
+					break;
+				case 'N':
+					$placeholder[] = null;
+					break;
+				case 'O':
+					throw new \Exception('Objects are not supported by unserialize fix');
 					break;
 			}
 			continue;
