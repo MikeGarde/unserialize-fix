@@ -133,3 +133,17 @@ function fix($string)
 
 	return $return;
 }
+
+
+/**
+ * @param $string
+ * @param $key
+ *
+ * @return null|string|integer
+ */
+function getValue($string, $key)
+{
+	preg_match('/"' . $key . '";(s:[0-9]+:"([^"]*)"|i:([0-9]+));/', $string, $match);
+
+	return (isset($match[2])) ? $match[2] : null;
+}
